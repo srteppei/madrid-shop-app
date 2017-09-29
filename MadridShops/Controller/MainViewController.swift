@@ -19,6 +19,24 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        ExecuteOnceInteractorImpl().execute {
+            initializeData()
+        }
+        
+    }
+    
+    func initializeData() {
+        let downloadShopsInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl()
+        
+        downloadShopsInteractor.execute { (shops: Shops) in
+            // todo OK
+            print("Name: " + shops.get(index: 0).name)
+            
+            let cacheInteractor = SaveAllShopsInteractorImpl()
+            cacheInteractor.execute(shops: shops, context: self.context, onSuccess: { (shops: Shops) in
+                SetExecutedOnceInteractorImpl().execute()
+            })
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

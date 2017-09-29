@@ -25,35 +25,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.delegate = self
         self.locationManager.startUpdatingLocation()
-        
-        ExecuteOnceInteractorImpl().execute {
-            initializeData()
-        }
-        
+                
         self.shopsCollectionView.delegate = self
         self.shopsCollectionView.dataSource = self
         
         let madridLocation = CLLocation(latitude:40.41889 , longitude: -3.69194)
         self.map.setCenter(madridLocation.coordinate, animated: true)
-    }
-    
-    func initializeData() {
-        let downloadShopsInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl()
-        
-        downloadShopsInteractor.execute { (shops: Shops) in
-            // todo OK
-            print("Name: " + shops.get(index: 0).name)
-            
-            let cacheInteractor = SaveAllShopsInteractorImpl()
-            cacheInteractor.execute(shops: shops, context: self.context, onSuccess: { (shops: Shops) in
-                SetExecutedOnceInteractorImpl().execute()
-                
-                self._fetchedResultsController = nil
-                self.shopsCollectionView.delegate = self
-                self.shopsCollectionView.dataSource = self
-                self.shopsCollectionView.reloadData()
-            })
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
