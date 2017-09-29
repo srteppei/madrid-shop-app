@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="-1865" y="166"/>
         </scene>
-        <!--¡MAD!-->
+        <!--Menú principal-->
         <scene sceneID="NJM-aD-4gl">
             <objects>
                 <viewController id="cJb-dm-XgN" customClass="MainViewController" customModule="MadridShops" customModuleProvider="target" sceneMemberID="viewController">
@@ -34,25 +35,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvR-g6-R5v">
-                                <rect key="frame" x="88" y="475" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.84803158044815063" green="0.2025621235370636" blue="0.20959287881851196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4B7-wb-u9f">
+                                <rect key="frame" x="20" y="20" width="374" height="648"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="u5g-ev-B8w">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="320"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="DBL-oL-J9d">
+                                        <rect key="frame" x="0.0" y="328" width="374" height="320"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHx-f9-UYF">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="160"/>
+                                                <state key="normal" title="Shops"/>
+                                                <connections>
+                                                    <segue destination="BYZ-38-t0r" kind="show" identifier="shopView" id="ZB5-cs-IEK"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdZ-0m-XEP">
+                                                <rect key="frame" x="0.0" y="160" width="374" height="160"/>
+                                                <state key="normal" title="Actividades"/>
+                                                <connections>
+                                                    <segue destination="BYZ-38-t0r" kind="show" identifier="activitiesView" id="tRP-8n-7L8"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="DBL-oL-J9d" firstAttribute="top" secondItem="u5g-ev-B8w" secondAttribute="bottom" constant="8" symbolic="YES" id="T97-sz-pKk"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4B7-wb-u9f" firstAttribute="top" secondItem="sFd-4E-L0r" secondAttribute="top" constant="20" symbolic="YES" id="1jt-kn-ls7"/>
+                            <constraint firstItem="4B7-wb-u9f" firstAttribute="leading" secondItem="sFd-4E-L0r" secondAttribute="leading" constant="20" symbolic="YES" id="59U-N3-yb7"/>
+                            <constraint firstAttribute="trailing" secondItem="4B7-wb-u9f" secondAttribute="trailing" constant="20" symbolic="YES" id="GfS-Gs-MT6"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bkM-HS-0dC"/>
                     </view>
-                    <navigationItem key="navigationItem" title="¡MAD!" id="kEH-VY-MHR">
-                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="QOk-G0-OEA">
-                            <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" identifier="ShowShopsSegue" id="8Qn-tw-eJE"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="redRectangle" destination="gvR-g6-R5v" id="nGa-0t-c0M"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Menú principal" id="kEH-VY-MHR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKD-oO-KZJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -168,4 +190,10 @@ Quietooor hasta luego Lucas apetecan benemeritaar se calle ustée hasta luego Lu
             <point key="canvasLocation" x="688.79999999999995" y="165.06746626686657"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo.jpg" width="630" height="320"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="tRP-8n-7L8"/>
+    </inferredMetricsTieBreakers>
 </document>
