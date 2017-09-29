@@ -28,6 +28,7 @@ class MainViewController: UIViewController {
     
     func initializeData() {
         let downloadShopsInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl(url:"https://madrid-shops.com/json_new/getShops.php")
+        let downloadActivitiesInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl(url:"https://madrid-shops.com/json_new/getActivities.php")
         
         downloadShopsInteractor.execute { (shops: Shops) in
             // todo OK
