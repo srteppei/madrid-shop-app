@@ -9,11 +9,17 @@
 import Foundation
 
 class DownloadAllShopsInteractorNSURLSessionImpl: DownloadAllShopsInteractor {
+    
+    let url: String
+    
+    init(url: String) {
+        self.url = url;
+    }
+    
     func execute(onSuccess: @escaping (Shops) -> Void, onError: errorClosure) {
-        let urlString = "https://madrid-shops.com/json_new/getShops.php"
         
         let session = URLSession.shared
-        if let url = URL(string: urlString) {
+        if let url = URL(string: self.url) {
             let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
 
                 OperationQueue.main.addOperation {

@@ -12,8 +12,9 @@ import CoreData
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var shopButton: UIButton!
+    @IBOutlet weak var activitiesButton: UIButton!
     var context: NSManagedObjectContext!
-    @IBOutlet weak var redRectangle: UIView!
     var myLoader: WavesLoader?
     
     override func viewDidLoad() {
@@ -26,7 +27,7 @@ class MainViewController: UIViewController {
     }
     
     func initializeData() {
-        let downloadShopsInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl()
+        let downloadShopsInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl(url:"https://madrid-shops.com/json_new/getShops.php")
         
         downloadShopsInteractor.execute { (shops: Shops) in
             // todo OK
@@ -35,6 +36,8 @@ class MainViewController: UIViewController {
             let cacheInteractor = SaveAllShopsInteractorImpl()
             cacheInteractor.execute(shops: shops, context: self.context, onSuccess: { (shops: Shops) in
                 SetExecutedOnceInteractorImpl().execute()
+                self.shopButton.isEnabled = true
+                self.activitiesButton.isEnabled = true
             })
         }
     }
