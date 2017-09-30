@@ -6,7 +6,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="-1865" y="166"/>
         </scene>
-        <!--¡MAD!-->
+        <!--Menú principal-->
         <scene sceneID="NJM-aD-4gl">
             <objects>
                 <viewController id="cJb-dm-XgN" customClass="MainViewController" customModule="MadridShops" customModuleProvider="target" sceneMemberID="viewController">
@@ -34,24 +36,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvR-g6-R5v">
-                                <rect key="frame" x="88" y="475" width="240" height="128"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="VFR-Ro-KRb">
+                                <rect key="frame" x="20" y="338" width="374" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.84803158044815063" green="0.2025621235370636" blue="0.20959287881851196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
+                            </activityIndicatorView>
+                            <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4B7-wb-u9f">
+                                <rect key="frame" x="20" y="20" width="374" height="648"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="u5g-ev-B8w">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="320"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="DBL-oL-J9d">
+                                        <rect key="frame" x="0.0" y="328" width="374" height="320"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHx-f9-UYF">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="160"/>
+                                                <state key="normal" title="Shops"/>
+                                                <connections>
+                                                    <segue destination="BYZ-38-t0r" kind="show" identifier="shopView" id="ZB5-cs-IEK"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdZ-0m-XEP">
+                                                <rect key="frame" x="0.0" y="160" width="374" height="160"/>
+                                                <state key="normal" title="Actividades"/>
+                                                <connections>
+                                                    <segue destination="BYZ-38-t0r" kind="show" identifier="activitiesView" id="tRP-8n-7L8"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="DBL-oL-J9d" firstAttribute="top" secondItem="u5g-ev-B8w" secondAttribute="bottom" constant="8" symbolic="YES" id="T97-sz-pKk"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4B7-wb-u9f" firstAttribute="top" secondItem="sFd-4E-L0r" secondAttribute="top" constant="20" symbolic="YES" id="1jt-kn-ls7"/>
+                            <constraint firstItem="4B7-wb-u9f" firstAttribute="leading" secondItem="sFd-4E-L0r" secondAttribute="leading" constant="20" symbolic="YES" id="59U-N3-yb7"/>
+                            <constraint firstAttribute="trailing" secondItem="4B7-wb-u9f" secondAttribute="trailing" constant="20" symbolic="YES" id="GfS-Gs-MT6"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bkM-HS-0dC"/>
                     </view>
-                    <navigationItem key="navigationItem" title="¡MAD!" id="kEH-VY-MHR">
-                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="QOk-G0-OEA">
-                            <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" identifier="ShowShopsSegue" id="8Qn-tw-eJE"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Menú principal" id="kEH-VY-MHR"/>
                     <connections>
-                        <outlet property="redRectangle" destination="gvR-g6-R5v" id="nGa-0t-c0M"/>
+                        <outlet property="activitiesButton" destination="tdZ-0m-XEP" id="dFO-y9-oza"/>
+                        <outlet property="loader" destination="VFR-Ro-KRb" id="3s0-oE-3Cd"/>
+                        <outlet property="shopButton" destination="pHx-f9-UYF" id="X22-kv-9Tk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKD-oO-KZJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -140,25 +172,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hEd-MM-Nbl">
-                                <rect key="frame" x="16" y="91" width="343" height="293"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem fistrum al ataquerl a gramenawer ahorarr. Benemeritaar apetecan diodeno de la pradera pecador amatomaa ese que llega está la cosa muy malar. Sexuarl fistro a peich de la pradera pecador jarl quietooor la caidita va usté muy cargadoo condemor qué dise usteer. Te voy a borrar el cerito torpedo ese que llega ese pedazo de ese hombree. Qué dise usteer benemeritaar pecador al ataquerl no puedor tiene musho peligro a gramenawer la caidita la caidita te va a hasé pupitaa. La caidita a wan está la cosa muy malar hasta luego Lucas tiene musho peligro al ataquerl mamaar ahorarr. De la pradera pupita pecador condemor tiene musho peligro se calle ustée. Fistro a wan condemor va usté muy cargadoo diodenoo mamaar. Pecador me cago en tus muelas fistro diodeno diodenoo te va a hasé pupitaa al ataquerl sexuarl ese hombree diodenoo por la gloria de mi madre.
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HsR-v2-BQN">
+                                <rect key="frame" x="36" y="101" width="343" height="535"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hEd-MM-Nbl">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="272.66666666666669"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <string key="text">Lorem fistrum al ataquerl a gramenawer ahorarr. Benemeritaar apetecan diodeno de la pradera pecador amatomaa ese que llega está la cosa muy malar. Sexuarl fistro a peich de la pradera pecador jarl quietooor la caidita va usté muy cargadoo condemor qué dise usteer. Te voy a borrar el cerito torpedo ese que llega ese pedazo de ese hombree. Qué dise usteer benemeritaar pecador al ataquerl no puedor tiene musho peligro a gramenawer la caidita la caidita te va a hasé pupitaa. La caidita a wan está la cosa muy malar hasta luego Lucas tiene musho peligro al ataquerl mamaar ahorarr. De la pradera pupita pecador condemor tiene musho peligro se calle ustée. Fistro a wan condemor va usté muy cargadoo diodenoo mamaar. Pecador me cago en tus muelas fistro diodeno diodenoo te va a hasé pupitaa al ataquerl sexuarl ese hombree diodenoo por la gloria de mi madre.
 
 Quietooor hasta luego Lucas apetecan benemeritaar se calle ustée hasta luego Lucas llevame al sircoo. Tiene musho peligro diodenoo por la gloria de mi madre a peich no puedor a gramenawer a gramenawer ese pedazo de mamaar. Jarl mamaar amatomaa te va a hasé pupitaa la caidita te voy a borrar el cerito torpedo. Por la gloria de mi madre a </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hAX-FV-zB1">
-                                <rect key="frame" x="16" y="392" width="343" height="242"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hAX-FV-zB1">
+                                        <rect key="frame" x="0.0" y="272.66666666666663" width="343" height="241.99999999999989"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bK6-qq-rzH">
+                                        <rect key="frame" x="0.0" y="514.66666666666652" width="343" height="20.333333333333371"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="343" id="G2V-Wn-SEX"/>
+                                    <constraint firstAttribute="width" secondItem="HsR-v2-BQN" secondAttribute="height" multiplier="343:535" id="JTa-22-Zdb"/>
+                                    <constraint firstAttribute="height" constant="535" id="UAx-n5-kOg"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HsR-v2-BQN" firstAttribute="leading" secondItem="Q7y-aZ-CVJ" secondAttribute="leading" constant="36" id="A14-Qe-9No"/>
+                            <constraint firstItem="HsR-v2-BQN" firstAttribute="top" secondItem="Sdl-ca-4d0" secondAttribute="top" constant="101" id="Bha-qK-5g2"/>
+                            <constraint firstItem="Q7y-aZ-CVJ" firstAttribute="trailing" secondItem="HsR-v2-BQN" secondAttribute="trailing" constant="35" id="CR4-5i-Kxq"/>
+                            <constraint firstItem="HsR-v2-BQN" firstAttribute="top" secondItem="Q7y-aZ-CVJ" secondAttribute="top" constant="37" id="NL0-4A-r6h"/>
+                            <constraint firstItem="Q7y-aZ-CVJ" firstAttribute="bottom" secondItem="HsR-v2-BQN" secondAttribute="bottom" constant="100" id="UKA-Hd-yPu"/>
+                            <constraint firstAttribute="bottom" secondItem="HsR-v2-BQN" secondAttribute="bottom" constant="100" id="awR-Tn-kcB"/>
+                            <constraint firstItem="HsR-v2-BQN" firstAttribute="centerY" secondItem="Sdl-ca-4d0" secondAttribute="centerY" id="chB-ek-iZv"/>
+                            <constraint firstItem="HsR-v2-BQN" firstAttribute="top" secondItem="Sdl-ca-4d0" secondAttribute="top" constant="101" id="gPy-EN-XCx"/>
+                            <constraint firstItem="HsR-v2-BQN" firstAttribute="centerX" secondItem="Sdl-ca-4d0" secondAttribute="centerX" id="iNj-oU-aao"/>
+                            <constraint firstItem="HsR-v2-BQN" firstAttribute="leading" secondItem="Sdl-ca-4d0" secondAttribute="leading" constant="36" id="jqP-L1-6S7"/>
+                            <constraint firstAttribute="trailing" secondItem="HsR-v2-BQN" secondAttribute="trailing" constant="35" id="m8B-l2-XpS"/>
+                            <constraint firstItem="HsR-v2-BQN" firstAttribute="leading" secondItem="Sdl-ca-4d0" secondAttribute="leading" constant="36" id="nqX-sK-vup"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Q7y-aZ-CVJ"/>
                     </view>
                     <connections>
+                        <outlet property="shopAdress" destination="bK6-qq-rzH" id="8Ha-um-ZJ4"/>
                         <outlet property="shopDetailDescription" destination="hEd-MM-Nbl" id="zNX-fb-Lrw"/>
                         <outlet property="shopImage" destination="hAX-FV-zB1" id="g2G-sq-0ig"/>
                     </connections>
@@ -168,4 +229,10 @@ Quietooor hasta luego Lucas apetecan benemeritaar se calle ustée hasta luego Lu
             <point key="canvasLocation" x="688.79999999999995" y="165.06746626686657"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo.jpg" width="630" height="320"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="tRP-8n-7L8"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -11,9 +11,10 @@ import CoreData
 import CoreLocation
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController {
 
     var context: NSManagedObjectContext!
+    var type: String!
     @IBOutlet weak var shopsCollectionView: UICollectionView!
     
     @IBOutlet weak var map: MKMapView!
@@ -21,44 +22,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.locationManager.requestWhenInUseAuthorization()
+        
         self.locationManager.delegate = self
+        self.map.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
-        
-        ExecuteOnceInteractorImpl().execute {
-            initializeData()
-        }
-        
+                
         self.shopsCollectionView.delegate = self
         self.shopsCollectionView.dataSource = self
         
-        let madridLocation = CLLocation(latitude:40.41889 , longitude: -3.69194)
-        self.map.setCenter(madridLocation.coordinate, animated: true)
-    }
-    
-    func initializeData() {
-        let downloadShopsInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl()
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.map.showsUserLocation = true
         
-        downloadShopsInteractor.execute { (shops: Shops) in
-            // todo OK
-            print("Name: " + shops.get(index: 0).name)
-            
-            let cacheInteractor = SaveAllShopsInteractorImpl()
-            cacheInteractor.execute(shops: shops, context: self.context, onSuccess: { (shops: Shops) in
-                SetExecutedOnceInteractorImpl().execute()
-                
-                self._fetchedResultsController = nil
-                self.shopsCollectionView.delegate = self
-                self.shopsCollectionView.dataSource = self
-                self.shopsCollectionView.reloadData()
-            })
-        }
+        let madridLocation = CLLocation(latitude:  40.416775, longitude: -3.703790)
+        let madridRegion = MKCoordinateRegion(center: madridLocation.coordinate, span:
+            MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        
+        self.map.setRegion(madridRegion, animated: true)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let shop: ShopCD = self.fetchedResultsController.object(at: indexPath)
+        let shop: ShopOrActivityCD = self.fetchedResultsController.object(at: indexPath)
         self.performSegue(withIdentifier: "ShowShopDetailSegue", sender: shop)
         
     }
@@ -67,24 +54,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if segue.identifier == "ShowShopDetailSegue" {
             let vc = segue.destination as! ShopDetailViewController
 
-            let shopCD: ShopCD = sender as! ShopCD
-            vc.shop = mapShopCDIntoShop(shopCD: shopCD)
+            let shopCD: ShopOrActivityCD = sender as! ShopOrActivityCD
+            vc.shop = mapShopOrActivityCDIntoShopOrActivity(shopOrActivityCD: shopCD)
         }
     }
 
     // MARK: - Fetched results controller
-    var _fetchedResultsController: NSFetchedResultsController<ShopCD>? = nil
+    var _fetchedResultsController: NSFetchedResultsController<ShopOrActivityCD>? = nil
 
-    var fetchedResultsController: NSFetchedResultsController<ShopCD> {
+    var fetchedResultsController: NSFetchedResultsController<ShopOrActivityCD> {
         if (_fetchedResultsController != nil) {
             return _fetchedResultsController!
         }
         
-        let fetchRequest: NSFetchRequest<ShopCD> = ShopCD.fetchRequest()
+        let fetchRequest: NSFetchRequest<ShopOrActivityCD> = ShopOrActivityCD.fetchRequest()
         
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "typeRelationship.type == %@", self.type)
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".

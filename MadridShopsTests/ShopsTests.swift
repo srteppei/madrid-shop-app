@@ -12,13 +12,13 @@ import MadridShops
 class ShopsTests: XCTestCase {
     
     func testGivenEmptyShopsNumberShopsIsZero() {
-        let sut = Shops()
+        let sut = ShopsOrActivities()
         XCTAssertEqual(0, sut.count())
     }
     
     func testGivenShopsWithOneElementNumberShopsIsOne() {
-        let sut = Shops()
-        sut.add(shop: Shop(name: "Shop"))
+        let sut = ShopsOrActivities()
+        sut.add(shop: ShopOrActivity(name: "Shop",type: "shop"))
         XCTAssertEqual(1, sut.count())
     }
 }
