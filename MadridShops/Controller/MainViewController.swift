@@ -61,6 +61,18 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let vc = segue.destination as! ViewController
+        
+        switch segue.identifier! {
+        case "shopView":
+                vc.title = "Shop"
+                vc.type = "shop"
+        case "activitiesView":
+                vc.title = "Actividades"
+                vc.type = "activity"
+        default:
+            print("")
+        }
+        
         vc.context = self.context
         
     }

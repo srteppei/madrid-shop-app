@@ -14,6 +14,7 @@ import MapKit
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
     var context: NSManagedObjectContext!
+    var type: String!
     @IBOutlet weak var shopsCollectionView: UICollectionView!
     
     @IBOutlet weak var map: MKMapView!
@@ -62,6 +63,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "typeRelationship.type == %@", self.type)
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
