@@ -15,12 +15,14 @@ class ShopDetailViewController: UIViewController {
     @IBOutlet weak var shopDetailDescription: UITextView!
     
     @IBOutlet weak var shopImage: UIImageView!
+    @IBOutlet weak var shopAdress: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = self.shop.name
-        self.shopDetailDescription.text = self.shop.description        
+        self.shopDetailDescription.text = self.shop.description
+        self.shopAdress.text = self.shop.address
         mapsImageUrl(latitud: self.shop.latitude!, longitude: self.shop.longitude!).loadImage(into: shopImage)
         
     }

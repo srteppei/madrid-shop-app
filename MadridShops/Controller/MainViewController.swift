@@ -19,7 +19,8 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        loader.isHidden = true
         if (Network().isConnected()) {
             ExecuteOnceInteractorImpl().execute {
                 loader.isHidden = false
