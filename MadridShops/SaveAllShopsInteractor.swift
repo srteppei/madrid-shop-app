@@ -10,6 +10,6 @@ import CoreData
 
 protocol SaveAllShopsInteractor {
     // execute: saves all shops. Return on the main thread
-    func execute(shops: Shops, context: NSManagedObjectContext, action: @escaping (NSManagedObjectContext,Shop) -> NSManagedObject ,onSuccess: @escaping (Shops) -> Void, onError: errorClosure)
-    func execute(shops: Shops, context: NSManagedObjectContext, action: @escaping (NSManagedObjectContext,Shop) -> NSManagedObject , onSuccess: @escaping (Shops) -> Void)
+    func execute(shops: ShopsOrActivities, context: NSManagedObjectContext,type: TypeCD ,action: @escaping (NSManagedObjectContext,ShopOrActivity,TypeCD) -> NSManagedObject ,onSuccess: @escaping (ShopsOrActivities) -> Void, onError: errorClosure)
+    func execute(shops: ShopsOrActivities, context: NSManagedObjectContext, type: TypeCD ,action: @escaping (NSManagedObjectContext,ShopOrActivity,TypeCD) -> NSManagedObject , onSuccess: @escaping (ShopsOrActivities) -> Void)
 }

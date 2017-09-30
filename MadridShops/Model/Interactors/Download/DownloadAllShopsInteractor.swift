@@ -10,6 +10,6 @@ import Foundation
 
 protocol DownloadAllShopsInteractor {
     // execute: downloads all shops. Return on the main thread
-    func execute(onSuccess: @escaping (Shops) -> Void, onError: errorClosure)
-    func execute(onSuccess: @escaping (Shops) -> Void)
+    func execute(type: String,onSuccess: @escaping (ShopsOrActivities) -> Void, onError: errorClosure)
+    func execute(type: String,onSuccess: @escaping (ShopsOrActivities) -> Void)
 }

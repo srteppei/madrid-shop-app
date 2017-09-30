@@ -16,7 +16,7 @@ class DownloadAllShopsInteractorNSURLSessionImpl: DownloadAllShopsInteractor {
         self.url = url;
     }
     
-    func execute(onSuccess: @escaping (Shops) -> Void, onError: errorClosure) {
+    func execute(type: String,onSuccess: @escaping (ShopsOrActivities) -> Void, onError: errorClosure) {
         
         let session = URLSession.shared
         if let url = URL(string: self.url) {
@@ -27,8 +27,7 @@ class DownloadAllShopsInteractorNSURLSessionImpl: DownloadAllShopsInteractor {
 
                     if error == nil {
                         // OK
-                        
-                        let shops = parseShops(data: data!)
+                        let shops = parseShopsOrActivities(data: data!,type: type)
                         onSuccess(shops)
                     } else {
                         // Error
@@ -42,8 +41,8 @@ class DownloadAllShopsInteractorNSURLSessionImpl: DownloadAllShopsInteractor {
         }
     }
     
-    func execute(onSuccess: @escaping (Shops) -> Void) {
-        execute(onSuccess: onSuccess, onError: nil)
+    func execute(type: String,onSuccess: @escaping (ShopsOrActivities) -> Void) {
+        execute(type: type,onSuccess: onSuccess, onError: nil)
     }
     
     

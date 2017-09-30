@@ -9,23 +9,23 @@
 import CoreData
 
 class SaveAllShopsInteractorImpl: SaveAllShopsInteractor {
-    func execute(shops: Shops, context: NSManagedObjectContext, action: @escaping (NSManagedObjectContext, Shop) -> NSManagedObject, onSuccess: @escaping (Shops) -> Void, onError: errorClosure) {
+    func execute(shops: ShopsOrActivities, context: NSManagedObjectContext,type: TypeCD , action: @escaping (NSManagedObjectContext, ShopOrActivity,TypeCD) -> NSManagedObject, onSuccess: @escaping (ShopsOrActivities) -> Void, onError: errorClosure) {
         for i in 0 ..< shops.count() {
             let shop = shops.get(index: i)
             
-            let _ = action(context,shop)
+            let _ = action(context,shop,type)
         }
         
         do {
             try context.save()
             onSuccess(shops)
-        } catch {
-            // onError(nil)
+        } catch  {
+            //onError(error)
         }
     }
     
-    func execute(shops: Shops, context: NSManagedObjectContext, action: @escaping (NSManagedObjectContext, Shop) -> NSManagedObject, onSuccess: @escaping (Shops) -> Void) {
-        execute(shops: shops, context: context,action: action, onSuccess: onSuccess, onError: nil)
+    func execute(shops: ShopsOrActivities, context: NSManagedObjectContext,type: TypeCD ,action: @escaping (NSManagedObjectContext, ShopOrActivity,TypeCD) -> NSManagedObject, onSuccess: @escaping (ShopsOrActivities) -> Void) {
+        execute(shops: shops, context: context,type: type,action: action, onSuccess: onSuccess, onError: nil)
     }
     
 }

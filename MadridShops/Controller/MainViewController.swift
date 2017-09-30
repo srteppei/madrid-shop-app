@@ -15,7 +15,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var shopButton: UIButton!
     @IBOutlet weak var activitiesButton: UIButton!
     var context: NSManagedObjectContext!
-    var myLoader: WavesLoader?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,21 +28,34 @@ class MainViewController: UIViewController {
     }
     
     func initializeData() {
-        let downloadShopsInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl(url:"https://madrid-shops.com/json_new/getShops.php")
-        let downloadActivitiesInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl(url:"https://madrid-shops.com/json_new/getActivities.php")
+        let shopType: TypeCD = TypeCD(context: self.context)
+        let activityType: TypeCD = TypeCD(context: self.context)
         
-        downloadShopsInteractor.execute { (shops: Shops) in
-            let cacheInteractor = SaveAllShopsInteractorImpl()
-            cacheInteractor.execute(shops: shops, context: self.context,action: mapShopIntoShopCD, onSuccess: { (shops: Shops) in
-                self.shopButton.isEnabled = true
-                downloadActivitiesInteractor.execute { (shops: Shops) in
-                    cacheInteractor.execute(shops: shops, context: self.context,action: mapShopIntoShopCD, onSuccess: { (shops: Shops) in
-                        self.activitiesButton.isEnabled = true
-                        SetExecutedOnceInteractorImpl().execute()
-                    })
-                }
-            })
+        shopType.type = "shop"
+        activityType.type = "activity"
+        
+        do {
+            try context.save()
+            
+            let downloadShopsInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl(url:"https://madrid-shops.com/json_new/getShops.php")
+            let downloadActivitiesInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl(url:"https://madrid-shops.com/json_new/getActivities.php")
+            
+            downloadShopsInteractor.execute (type: "shop") {(shops: ShopsOrActivities) in
+                let cacheInteractor = SaveAllShopsInteractorImpl()
+                cacheInteractor.execute(shops: shops, context: self.context,type: shopType,action: mapShopOrActivityIntoShopOrActivityCD, onSuccess: { (shops: ShopsOrActivities) in
+                    self.shopButton.isEnabled = true
+                    downloadActivitiesInteractor.execute (type: "activity") { (shops: ShopsOrActivities) in
+                        cacheInteractor.execute(shops: shops, context: self.context,type: activityType,action: mapShopOrActivityIntoShopOrActivityCD, onSuccess: { (shops: ShopsOrActivities) in
+                            self.activitiesButton.isEnabled = true
+                            SetExecutedOnceInteractorImpl().execute()
+                        })
+                    }
+                })
+            }
+        } catch{
+            print(error)
         }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

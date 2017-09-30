@@ -8,14 +8,14 @@
 
 import Foundation
 
-public protocol ShopsProtocol {
+public protocol ShopsOrActivityProtocol {
     func count() -> Int
-    func add(shop: Shop)
-    func get(index: Int) -> Shop
+    func add(shop: ShopOrActivity)
+    func get(index: Int) -> ShopOrActivity
 }
 
-public class Shops: ShopsProtocol {
-    private var shopsList: [Shop]?
+public class ShopsOrActivities: ShopsOrActivityProtocol {
+    private var shopsList: [ShopOrActivity]?
 
     public init() {
         self.shopsList = []
@@ -25,11 +25,11 @@ public class Shops: ShopsProtocol {
         return (shopsList?.count)!
     }
     
-    public func add(shop: Shop) {
+    public func add(shop: ShopOrActivity) {
         shopsList?.append(shop)
     }
     
-    public func get(index: Int) -> Shop {
+    public func get(index: Int) -> ShopOrActivity {
         return (shopsList?[index])!
     }
 }
