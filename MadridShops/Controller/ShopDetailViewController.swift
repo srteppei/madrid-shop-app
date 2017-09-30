@@ -20,10 +20,9 @@ class ShopDetailViewController: UIViewController {
         super.viewDidLoad()
 
         self.title = self.shop.name
-        self.shopDetailDescription.text = self.shop.description
-        self.shop.image.loadImage(into: shopImage)
+        self.shopDetailDescription.text = self.shop.description        
+        mapsImageUrl(latitud: self.shop.latitude!, longitude: self.shop.longitude!).loadImage(into: shopImage)
+        
     }
-
-    
 
 }

@@ -22,4 +22,10 @@ extension String {
             }
         }
     }
+    
+  
+}
+
+func mapsImageUrl (latitud: Float,longitude: Float) -> String {
+    return "https://maps.googleapis.com/maps/api/staticmap?center=\(latitud),\(longitude)&zoom=17&size=320x220"
 }
