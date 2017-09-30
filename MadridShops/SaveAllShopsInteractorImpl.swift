@@ -9,12 +9,11 @@
 import CoreData
 
 class SaveAllShopsInteractorImpl: SaveAllShopsInteractor {
-    func execute(shops: Shops, context: NSManagedObjectContext, onSuccess: @escaping (Shops) -> Void, onError: errorClosure) {
-        
+    func execute(shops: Shops, context: NSManagedObjectContext, action: @escaping (NSManagedObjectContext, Shop) -> NSManagedObject, onSuccess: @escaping (Shops) -> Void, onError: errorClosure) {
         for i in 0 ..< shops.count() {
             let shop = shops.get(index: i)
             
-            let _ = mapShopIntoShopCD(context: context, shop: shop)
+            let _ = action(context,shop)
         }
         
         do {
@@ -23,13 +22,10 @@ class SaveAllShopsInteractorImpl: SaveAllShopsInteractor {
         } catch {
             // onError(nil)
         }
-        
     }
     
-    func execute(shops: Shops, context: NSManagedObjectContext, onSuccess: @escaping (Shops) -> Void) {
-        execute(shops: shops, context: context, onSuccess: onSuccess, onError: nil)
+    func execute(shops: Shops, context: NSManagedObjectContext, action: @escaping (NSManagedObjectContext, Shop) -> NSManagedObject, onSuccess: @escaping (Shops) -> Void) {
+        execute(shops: shops, context: context,action: action, onSuccess: onSuccess, onError: nil)
     }
-    
-    
     
 }

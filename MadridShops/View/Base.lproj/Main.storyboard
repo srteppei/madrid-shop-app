@@ -44,14 +44,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="DBL-oL-J9d">
                                         <rect key="frame" x="0.0" y="328" width="374" height="320"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHx-f9-UYF">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHx-f9-UYF">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="160"/>
                                                 <state key="normal" title="Shops"/>
                                                 <connections>
                                                     <segue destination="BYZ-38-t0r" kind="show" identifier="shopView" id="ZB5-cs-IEK"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdZ-0m-XEP">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdZ-0m-XEP">
                                                 <rect key="frame" x="0.0" y="160" width="374" height="160"/>
                                                 <state key="normal" title="Actividades"/>
                                                 <connections>

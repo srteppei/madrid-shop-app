@@ -21,6 +21,8 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         ExecuteOnceInteractorImpl().execute {
+            self.shopButton.isEnabled = false
+            self.activitiesButton.isEnabled = false
             initializeData()
         }
         
@@ -31,14 +33,15 @@ class MainViewController: UIViewController {
         let downloadActivitiesInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl(url:"https://madrid-shops.com/json_new/getActivities.php")
         
         downloadShopsInteractor.execute { (shops: Shops) in
-            // todo OK
-            print("Name: " + shops.get(index: 0).name)
-            
             let cacheInteractor = SaveAllShopsInteractorImpl()
-            cacheInteractor.execute(shops: shops, context: self.context, onSuccess: { (shops: Shops) in
-                SetExecutedOnceInteractorImpl().execute()
+            cacheInteractor.execute(shops: shops, context: self.context,action: mapShopIntoShopCD, onSuccess: { (shops: Shops) in
                 self.shopButton.isEnabled = true
-                self.activitiesButton.isEnabled = true
+                downloadActivitiesInteractor.execute { (shops: Shops) in
+                    cacheInteractor.execute(shops: shops, context: self.context,action: mapShopIntoShopCD, onSuccess: { (shops: Shops) in
+                        self.activitiesButton.isEnabled = true
+                        SetExecutedOnceInteractorImpl().execute()
+                    })
+                }
             })
         }
     }
