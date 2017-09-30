@@ -9,12 +9,12 @@
 import UIKit
 
 class ShopCell: UICollectionViewCell {
-    var shop: Shop?
+    var shop: ShopOrActivity?
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
 
-    func refresh(shop: Shop) {
+    func refresh(shop: ShopOrActivity) {
         self.shop = shop
         
         self.label.text = shop.name

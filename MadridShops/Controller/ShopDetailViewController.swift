@@ -10,7 +10,7 @@ import UIKit
 
 class ShopDetailViewController: UIViewController {
 
-    var shop: Shop!
+    var shop: ShopOrActivity!
     
     @IBOutlet weak var shopDetailDescription: UITextView!
     

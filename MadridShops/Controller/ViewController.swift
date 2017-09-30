@@ -25,11 +25,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.delegate = self
         self.locationManager.startUpdatingLocation()
-        
-        ExecuteOnceInteractorImpl().execute {
-            initializeData()
-        }
-        
+                
         self.shopsCollectionView.delegate = self
         self.shopsCollectionView.dataSource = self
         
@@ -37,28 +33,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.map.setCenter(madridLocation.coordinate, animated: true)
     }
     
-    func initializeData() {
-        let downloadShopsInteractor: DownloadAllShopsInteractor = DownloadAllShopsInteractorNSURLSessionImpl()
-        
-        downloadShopsInteractor.execute { (shops: Shops) in
-            // todo OK
-            print("Name: " + shops.get(index: 0).name)
-            
-            let cacheInteractor = SaveAllShopsInteractorImpl()
-            cacheInteractor.execute(shops: shops, context: self.context, onSuccess: { (shops: Shops) in
-                SetExecutedOnceInteractorImpl().execute()
-                
-                self._fetchedResultsController = nil
-                self.shopsCollectionView.delegate = self
-                self.shopsCollectionView.dataSource = self
-                self.shopsCollectionView.reloadData()
-            })
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let shop: ShopCD = self.fetchedResultsController.object(at: indexPath)
+        let shop: ShopOrActivityCD = self.fetchedResultsController.object(at: indexPath)
         self.performSegue(withIdentifier: "ShowShopDetailSegue", sender: shop)
         
     }
@@ -67,20 +44,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if segue.identifier == "ShowShopDetailSegue" {
             let vc = segue.destination as! ShopDetailViewController
 
-            let shopCD: ShopCD = sender as! ShopCD
-            vc.shop = mapShopCDIntoShop(shopCD: shopCD)
+            let shopCD: ShopOrActivityCD = sender as! ShopOrActivityCD
+            vc.shop = mapShopOrActivityCDIntoShopOrActivity(shopOrActivityCD: shopCD)
         }
     }
 
     // MARK: - Fetched results controller
-    var _fetchedResultsController: NSFetchedResultsController<ShopCD>? = nil
+    var _fetchedResultsController: NSFetchedResultsController<ShopOrActivityCD>? = nil
 
-    var fetchedResultsController: NSFetchedResultsController<ShopCD> {
+    var fetchedResultsController: NSFetchedResultsController<ShopOrActivityCD> {
         if (_fetchedResultsController != nil) {
             return _fetchedResultsController!
         }
         
-        let fetchRequest: NSFetchRequest<ShopCD> = ShopCD.fetchRequest()
+        let fetchRequest: NSFetchRequest<ShopOrActivityCD> = ShopOrActivityCD.fetchRequest()
         
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20

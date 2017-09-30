@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DownloadAllShopsInteractorNSOpImpl: DownloadAllShopsInteractor {
+/*class DownloadAllShopsInteractorNSOpImpl: DownloadAllShopsInteractor {
     func execute(onSuccess: @escaping (Shops) -> Void) {
         execute(onSuccess: onSuccess, onError: nil)
     }
@@ -28,4 +28,4 @@ class DownloadAllShopsInteractorNSOpImpl: DownloadAllShopsInteractor {
             }
         }
     }
-}
+}*/

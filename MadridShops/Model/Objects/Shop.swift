@@ -8,8 +8,9 @@
 
 import Foundation
 
-public class Shop {
+public class ShopOrActivity {
     var name: String
+    var type: String
     var description: String = ""
     var latitude: Float? = nil
     var longitude: Float? = nil
@@ -18,7 +19,8 @@ public class Shop {
     var openingHours: String = ""
     var address: String = ""
     
-    public init(name: String) {
+    public init(name: String,type: String) {
         self.name = name
+        self.type = type
     }
 }

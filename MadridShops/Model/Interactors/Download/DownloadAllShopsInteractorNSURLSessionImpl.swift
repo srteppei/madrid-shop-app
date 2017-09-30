@@ -9,11 +9,17 @@
 import Foundation
 
 class DownloadAllShopsInteractorNSURLSessionImpl: DownloadAllShopsInteractor {
-    func execute(onSuccess: @escaping (Shops) -> Void, onError: errorClosure) {
-        let urlString = "https://madrid-shops.com/json_new/getShops.php"
+    
+    let url: String
+    
+    init(url: String) {
+        self.url = url;
+    }
+    
+    func execute(type: String,onSuccess: @escaping (ShopsOrActivities) -> Void, onError: errorClosure) {
         
         let session = URLSession.shared
-        if let url = URL(string: urlString) {
+        if let url = URL(string: self.url) {
             let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
 
                 OperationQueue.main.addOperation {
@@ -21,8 +27,7 @@ class DownloadAllShopsInteractorNSURLSessionImpl: DownloadAllShopsInteractor {
 
                     if error == nil {
                         // OK
-                        
-                        let shops = parseShops(data: data!)
+                        let shops = parseShopsOrActivities(data: data!,type: type)
                         onSuccess(shops)
                     } else {
                         // Error
@@ -36,8 +41,8 @@ class DownloadAllShopsInteractorNSURLSessionImpl: DownloadAllShopsInteractor {
         }
     }
     
-    func execute(onSuccess: @escaping (Shops) -> Void) {
-        execute(onSuccess: onSuccess, onError: nil)
+    func execute(type: String,onSuccess: @escaping (ShopsOrActivities) -> Void) {
+        execute(type: type,onSuccess: onSuccess, onError: nil)
     }
     
     
