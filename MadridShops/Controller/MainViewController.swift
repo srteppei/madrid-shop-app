@@ -19,12 +19,18 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ExecuteOnceInteractorImpl().execute {
-            self.shopButton.isEnabled = false
-            self.activitiesButton.isEnabled = false
-            initializeData()
+        if (Network().isConnected()) {
+            ExecuteOnceInteractorImpl().execute {
+                self.shopButton.isEnabled = false
+                self.activitiesButton.isEnabled = false
+                initializeData()
+            }
+        } else {
+            let alert = UIAlertController(title: "Alert", message: "There is not connection to internet", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
-        
+
     }
     
     func initializeData() {
