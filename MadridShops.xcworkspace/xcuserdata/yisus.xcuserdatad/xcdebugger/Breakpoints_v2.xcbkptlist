@@ -2,4 +2,54 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MadridShops/Controller/MainViewController.swift"
+            timestampString = "528468317.047976"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "initializeData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (MadridShops.ShopsOrActivities) -&gt; () in closure #1 (MadridShops.ShopsOrActivities) -&gt; () in closure #1 (MadridShops.ShopsOrActivities) -&gt; () in MadridShops.MainViewController.initializeData() -&gt; ()"
+                  moduleName = "MadridShops"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yisus/Documents/keepcoding/IOS%20avanzado/practica/madrid-shop-app/MadridShops/Controller/MainViewController.swift"
+                  timestampString = "528468317.059633"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "29">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (MadridShops.ShopsOrActivities) -&gt; () in closure #1 (MadridShops.ShopsOrActivities) -&gt; () in closure #1 (MadridShops.ShopsOrActivities) -&gt; () in closure #1 (MadridShops.ShopsOrActivities) -&gt; () in MadridShops.MainViewController.initializeData() -&gt; ()"
+                  moduleName = "MadridShops"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yisus/Documents/keepcoding/IOS%20avanzado/practica/madrid-shop-app/MadridShops/Controller/MainViewController.swift"
+                  timestampString = "528468317.06354"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "25">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
