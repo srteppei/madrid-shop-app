@@ -12,15 +12,18 @@ import CoreData
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var shopButton: UIButton!
     @IBOutlet weak var activitiesButton: UIButton!
     var context: NSManagedObjectContext!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if (Network().isConnected()) {
             ExecuteOnceInteractorImpl().execute {
+                loader.isHidden = false
+                loader.startAnimating()
                 self.shopButton.isEnabled = false
                 self.activitiesButton.isEnabled = false
                 initializeData()
@@ -50,6 +53,8 @@ class MainViewController: UIViewController {
                 downloadActivitiesInteractor.execute (type: "activity") { (shops: ShopsOrActivities) in
                     cacheInteractor.execute(shops: shops, context: self.context,type: activityType,action: mapShopOrActivityIntoShopOrActivityCD, onSuccess: { (shops: ShopsOrActivities) in
                         self.activitiesButton.isEnabled = true
+                        self.loader.stopAnimating()
+                        self.loader.isHidden = true
                         SetExecutedOnceInteractorImpl().execute()
                     })
                 }
